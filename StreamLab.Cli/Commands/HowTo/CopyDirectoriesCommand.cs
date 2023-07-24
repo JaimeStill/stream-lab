@@ -12,11 +12,13 @@ public class CopyDirectoriesCommand : CliCommand
         {
             new Option<string>(
                 new string[] { "--source", "--src", "-s" },
-                description: "Source directory"
+                description: "Source directory",
+                getDefaultValue: () => "../resources/source/"
             ),
             new Option<string>(
                 new string[] { "--destination", "--dest", "-d" } ,
-                description: "Destination directory"
+                description: "Destination directory",
+                getDefaultValue: () => "../resources/destination/"
             ),
             new Option<bool>(
                 new string[] { "--recurse", "-r" },
@@ -27,6 +29,11 @@ public class CopyDirectoriesCommand : CliCommand
 
     static async Task Call(string source, string destination, bool recurse)
     {
+        DirectoryInfo dest = new(destination);
+
+        if (dest.Exists)
+            dest.Delete(true);
+
         Console.WriteLine($"Copying {source} to {destination}");
         await CopyDirectory(source, destination, recurse);
         Console.WriteLine("Copying completed successfully");

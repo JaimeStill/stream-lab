@@ -8,7 +8,12 @@ public class HowToCommand : CliCommand
         "IO examples inspired by Microsoft docs",
         commands: new()
         {
-            new CopyDirectoriesCommand()
+            new AppendStreamTextCommand(),
+            new CopyDirectoriesCommand(),
+            new CopyFileStreamCommand(),
+            new CopyStreamTextCommand(),
+            new ReadStreamTextCommand(),
+            new WriteStreamTextCommand()
         }
     ) { }
 }
