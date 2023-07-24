@@ -1,0 +1,22 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "howto copy directories",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "cwd": "${workspaceFolder}/StreamLab.Cli",
+            "program": "bin/Debug/net7.0/streamlab.dll",
+            "args": [
+                "howto",
+                "copydirectories",
+                "-c",
+                "../resources/source/",
+                "-d",
+                "../resources/destination/",
+                "-r"
+            ]
+        }
+    ]
+}

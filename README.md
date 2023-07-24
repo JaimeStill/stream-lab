@@ -1,2 +1,3 @@
-# stream-lab
-Prototyping ideas around .NET data streams
+# Stream Lab
+
+Reasearching and prototyping ideas around .NET data streams
