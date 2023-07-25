@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "howto copy directories",
+            "name": "howto compression targzip",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
@@ -10,16 +10,78 @@
             "program": "bin/Debug/net7.0/streamlab.dll",
             "args": [
                 "howto",
+                "compression",
+                "targzip"
+            ]
+        },
+        {
+            "name": "howto compression zip",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "cwd": "${workspaceFolder}/StreamLab.Cli",
+            "program": "bin/Debug/net7.0/streamlab.dll",
+            "args": [
+                "howto",
+                "compression",
+                "zip"
+            ]
+        },
+        {
+            "name": "howto compression zipadd",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "cwd": "${workspaceFolder}/StreamLab.Cli",
+            "program": "bin/Debug/net7.0/streamlab.dll",
+            "args": [
+                "howto",
+                "compression",
+                "zipadd"
+            ]
+        },
+        {
+            "name": "howto compression zipfilter",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "cwd": "${workspaceFolder}/StreamLab.Cli",
+            "program": "bin/Debug/net7.0/streamlab.dll",
+            "args": [
+                "howto",
+                "compression",
+                "zipfilter"
+            ]
+        },
+        {
+            "name": "howto filesystem appendstreamtext",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "cwd": "${workspaceFolder}/StreamLab.Cli",
+            "program": "bin/Debug/net7.0/streamlab.dll",
+            "args": [
+                "howto",
+                "filesystem",
+                "appendstreamtext"
+            ]
+        },
+        {
+            "name": "howto filesystem copydirectories",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "cwd": "${workspaceFolder}/StreamLab.Cli",
+            "program": "bin/Debug/net7.0/streamlab.dll",
+            "args": [
+                "howto",
+                "filesystem",
                 "copydirectories",
-                "-s",
-                "../resources/source/",
-                "-d",
-                "../resources/destination/",
                 "-r"
             ]
         },
         {
-            "name": "howto copy filestream",
+            "name": "howto filesystem copyfilestream",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
@@ -27,11 +89,47 @@
             "program": "bin/Debug/net7.0/streamlab.dll",
             "args": [
                 "howto",
-                "copyfilestream",
-                "-s",
-                "../resources/source/",
-                "-d",
-                "../resources/destination/"
+                "filesystem",
+                "copyfilestream"
+            ]
+        },
+        {
+            "name": "howto filesystem copystreamtext",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "cwd": "${workspaceFolder}/StreamLab.Cli",
+            "program": "bin/Debug/net7.0/streamlab.dll",
+            "args": [
+                "howto",
+                "filesystem",
+                "copystreamtext"
+            ]
+        },
+        {
+            "name": "howto filesystem readstreamtext",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "cwd": "${workspaceFolder}/StreamLab.Cli",
+            "program": "bin/Debug/net7.0/streamlab.dll",
+            "args": [
+                "howto",
+                "filesystem",
+                "readstreamtext"
+            ]
+        },
+        {
+            "name": "howto filesystem writestreamtext",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "cwd": "${workspaceFolder}/StreamLab.Cli",
+            "program": "bin/Debug/net7.0/streamlab.dll",
+            "args": [
+                "howto",
+                "filesystem",
+                "writestreamtext"
             ]
         }
     ]

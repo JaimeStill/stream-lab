@@ -8,6 +8,7 @@ public class CompressionCommand : CliCommand
         "Compression stream examples inspired by Microsoft docs",
         commands: new()
         {
+            new TarGZipCommand(),
             new ZipCommand(),
             new ZipAddCommand(),
             new ZipFilterCommand()
