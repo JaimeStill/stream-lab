@@ -39,6 +39,11 @@ public class TarGZipCommand : CliCommand
 
         dest.Create();
 
+        /*
+            Efficient way of transforming streams in memory
+            and only writing the final resulting files
+        */
+
         Console.WriteLine($"Compressing {src.FullName} to {dest.FullName}{src.Name}.tar.gz");
         FileInfo gzip = await Compress(src, dest);
         Console.WriteLine($"{dest.FullName}{src.Name}.tar.gz successfully created");
@@ -46,6 +51,11 @@ public class TarGZipCommand : CliCommand
         Console.WriteLine($"Decompressing {dest.FullName}{src.Name}.tar.gz to {dest.FullName}{src.Name}");
         await Decompress(gzip, dest);
         Console.WriteLine($"{dest.FullName}{src.Name}.tar.gz successfully extracted to {dest.FullName}{src.Name}");
+
+        /*
+            Inefficient way of writing / deleting each
+            stream at each step of the process
+        */
 
         // Console.WriteLine($"Archiving {source} to {destination}");
         // FileInfo tar = await CreateTar(src, dest);
@@ -72,14 +82,10 @@ public class TarGZipCommand : CliCommand
         using (MemoryStream ram = new())
         {
             await TarFile.CreateFromDirectoryAsync(source.FullName, ram, true);
-
+            ram.Position = 0;
             using FileStream gzip = File.Create(path);
             using GZipStream gzipStream = new(gzip, CompressionMode.Compress);
             await ram.CopyToAsync(gzipStream);
-
-            ram.Close();
-            gzip.Close();
-            gzipStream.Close();
         }
 
         return new(path);
@@ -92,6 +98,7 @@ public class TarGZipCommand : CliCommand
 
         using MemoryStream ram = new();
         await gzipStream.CopyToAsync(ram);
+        ram.Position = 0;
         await TarFile.ExtractToDirectoryAsync(ram, target.FullName, true);
     }
 
