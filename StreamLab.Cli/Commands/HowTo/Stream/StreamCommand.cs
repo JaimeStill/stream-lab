@@ -10,6 +10,9 @@ public class StreamCommand : CliCommand
         {
             new BinaryReaderCommand(),
             new BinaryStreamCommand(),
+            new BufferedStreamClientCommand(),
+            new BufferedStreamServerCommand(),
+            new CryptoStreamCommand(),
             new MemoryStreamCommand(),
             new StreamReaderCommand()
         }

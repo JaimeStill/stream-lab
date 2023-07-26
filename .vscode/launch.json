@@ -133,6 +133,19 @@
             ]
         },
         {
+            "name": "howto stream bufferedstreamserver",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "cwd": "${workspaceFolder}/StreamLab.Cli",
+            "program": "bin/Debug/net7.0/streamlab.dll",
+            "args": [
+                "howto",
+                "stream",
+                "bufferedstreamserver"
+            ]
+        },
+        {
             "name": "howto stream memorystream",
             "type": "coreclr",
             "request": "launch",
