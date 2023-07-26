@@ -2,6 +2,18 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "cryptography symmetric",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "cwd": "${workspaceFolder}/StreamLab.Cli",
+            "program": "bin/Debug/net7.0/streamlab.dll",
+            "args": [
+                "cryptography",
+                "symmetric"
+            ]
+        },
+        {
             "name": "howto compression targzip",
             "type": "coreclr",
             "request": "launch",
