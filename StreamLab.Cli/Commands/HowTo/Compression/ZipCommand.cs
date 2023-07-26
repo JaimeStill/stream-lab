@@ -14,17 +14,17 @@ public class ZipCommand : CliCommand
             new Option<string>(
                 new string[] { "--source", "--src", "-s" },
                 description: "Source directory to compress",
-                getDefaultValue: () => "../resources/compress/"
+                getDefaultValue: () => "../resources/howto/compress/"
             ),
             new Option<string>(
                 new string[] { "--destination", "--dest", "-d" },
                 description: "Destination extraction directory",
-                getDefaultValue: () => "../resources/result/"
+                getDefaultValue: () => "../resources/howto/result/"
             ),
             new Option<string>(
                 new string[] { "--zip", "-z" },
                 description: "Compressed file name",
-                getDefaultValue: () => "../resources/result.zip"
+                getDefaultValue: () => "result.zip"
             )
         }
     )
@@ -32,24 +32,27 @@ public class ZipCommand : CliCommand
 
     static async Task Call(string source, string destination, string zip) => await Task.Run(() =>
     {
+        string zipPath = Path.Join(destination, zip);
         DirectoryInfo srcInfo = new(source);
         DirectoryInfo destInfo = new(destination);
-        FileInfo zipInfo = new(zip);
+        FileInfo zipInfo = new(zipPath);
 
         if (!srcInfo.Exists)
             throw new DirectoryNotFoundException($"Directory not found: {source}");
 
-        if (destInfo.Exists)
-            destInfo.Delete(true);
-
         if (zipInfo.Exists)
             zipInfo.Delete();
 
-        Console.WriteLine($"Compressing {source} to {zip}");
-        ZipFile.CreateFromDirectory(source, zip);
+        if (destInfo.Exists)
+            destInfo.Delete(true);
 
-        Console.WriteLine($"Extracting {zip} to {destination}");
-        ZipFile.ExtractToDirectory(zip, destination);
+        destInfo.Create();
+
+        Console.WriteLine($"Compressing {source} to {zipPath}");
+        ZipFile.CreateFromDirectory(source, zipPath);
+
+        Console.WriteLine($"Extracting {zipPath} to {destination}");
+        ZipFile.ExtractToDirectory(zipPath, destination);
 
         Console.WriteLine("Compression operations successfully completed");
     });

@@ -131,6 +131,19 @@
                 "filesystem",
                 "writestreamtext"
             ]
+        },
+        {
+            "name": "howto stream memorystream",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "cwd": "${workspaceFolder}/StreamLab.Cli",
+            "program": "bin/Debug/net7.0/streamlab.dll",
+            "args": [
+                "howto",
+                "stream",
+                "memorystream"
+            ]
         }
     ]
 }

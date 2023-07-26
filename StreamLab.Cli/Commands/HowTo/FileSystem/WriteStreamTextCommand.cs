@@ -13,7 +13,7 @@ public class WriteStreamTextCommand : CliCommand
             new Option<string>(
                 new string[] { "--file", "-f" },
                 description: "Destination text file",
-                getDefaultValue: () => "../resources/destination/write-stream.txt"
+                getDefaultValue: () => "../resources/howto/result/write-stream.txt"
             )
         }
     )

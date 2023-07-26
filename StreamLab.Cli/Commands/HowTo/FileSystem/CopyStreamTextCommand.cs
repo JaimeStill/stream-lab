@@ -13,12 +13,12 @@ public class CopyStreamTextCommand : CliCommand
             new Option<string>(
                 new string[] { "--source", "--src", "-s" },
                 description: "Source text file",
-                getDefaultValue: () => "../resources/source/readme.md"
+                getDefaultValue: () => "../resources/howto/filesystem/readme.md"
             ),
             new Option<string>(
                 new string[] { "--destination", "--dest", "-d" } ,
                 description: "Destination text file",
-                getDefaultValue: () => "../resources/destination/readme.md"
+                getDefaultValue: () => "../resources/howto/result/readme.md"
             )
         }
     )

@@ -14,17 +14,17 @@ public class ZipFilterCommand : CliCommand
             new Option<string>(
                 new string[] { "--source", "--src", "-s" },
                 description: "Source directory to compress",
-                getDefaultValue: () => "../resources/compress/"
+                getDefaultValue: () => "../resources/howto/compress/"
             ),
             new Option<string>(
                 new string[] { "--destination", "--dest", "-d" },
                 description: "Destination extraction directory",
-                getDefaultValue: () => "../resources/result/"
+                getDefaultValue: () => "../resources/howto/result/"
             ),
             new Option<string>(
                 new string[] { "--zip", "-z" },
                 description: "Compressed file name",
-                getDefaultValue: () => "../resources/result.zip"
+                getDefaultValue: () => "result.zip"
             ),
             new Option<string>(
                 new string[] { "--extension", "--ext", "-e" },
@@ -37,9 +37,10 @@ public class ZipFilterCommand : CliCommand
 
     static async Task Call(string source, string destination, string zip, string extension) => await Task.Run(() =>
     {
+        string zipPath = Path.Join(destination, zip);
         DirectoryInfo srcInfo = new(source);
         DirectoryInfo destInfo = new(destination);
-        FileInfo zipInfo = new(zip);
+        FileInfo zipInfo = new(zipPath);
 
         if (!srcInfo.Exists)
             throw new DirectoryNotFoundException($"Directory not found: {source}");
@@ -52,10 +53,10 @@ public class ZipFilterCommand : CliCommand
 
         destInfo.Create();
 
-        Console.WriteLine($"Compressing {source} to {zip}");
-        ZipFile.CreateFromDirectory(source, zip);
+        Console.WriteLine($"Compressing {source} to {zipPath}");
+        ZipFile.CreateFromDirectory(source, zipPath);
 
-        using ZipArchive archive = ZipFile.OpenRead(zip);
+        using ZipArchive archive = ZipFile.OpenRead(zipPath);
 
         foreach (ZipArchiveEntry entry in archive.Entries.Where(x => x.FullName.EndsWith(extension, StringComparison.OrdinalIgnoreCase)))
         {

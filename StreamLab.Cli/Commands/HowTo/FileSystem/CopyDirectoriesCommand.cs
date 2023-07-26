@@ -13,12 +13,12 @@ public class CopyDirectoriesCommand : CliCommand
             new Option<string>(
                 new string[] { "--source", "--src", "-s" },
                 description: "Source directory",
-                getDefaultValue: () => "../resources/source/"
+                getDefaultValue: () => "../resources/howto/filesystem/"
             ),
             new Option<string>(
                 new string[] { "--destination", "--dest", "-d" } ,
                 description: "Destination directory",
-                getDefaultValue: () => "../resources/destination/"
+                getDefaultValue: () => "../resources/howto/result/"
             ),
             new Option<bool>(
                 new string[] { "--recurse", "-r" },

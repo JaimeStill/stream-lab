@@ -14,22 +14,22 @@ public class ZipAddCommand : CliCommand
             new Option<string>(
                 new string[] { "--source", "--src", "-s" },
                 description: "Source directory to compress",
-                getDefaultValue: () => "../resources/compress/"
+                getDefaultValue: () => "../resources/howto/compress/"
             ),
             new Option<string>(
                 new string[] { "--destination", "--dest", "-d" },
                 description: "Destination extraction directory",
-                getDefaultValue: () => "../resources/result/"
+                getDefaultValue: () => "../resources/howto/result/"
             ),
             new Option<string>(
                 new string[] { "--zip", "-z" },
                 description: "Compressed file name",
-                getDefaultValue: () => "../resources/result.zip"
+                getDefaultValue: () => "result.zip"
             ),
             new Option<string>(
                 new string[] { "--file", "-f" },
                 description: "File to add to archive",
-                getDefaultValue: () => "../resources/source/images/galaxy.jpg"
+                getDefaultValue: () => "../resources/howto/filesystem/images/galaxy.jpg"
             )
         }
     )
@@ -37,9 +37,11 @@ public class ZipAddCommand : CliCommand
 
     static async Task Call(string source, string destination, string zip, string file)
     {
+        string zipPath = Path.Join(destination, zip);
+
         DirectoryInfo srcInfo = new(source);
         DirectoryInfo destInfo = new(destination);
-        FileInfo zipInfo = new(zip);
+        FileInfo zipInfo = new(zipPath);
         FileInfo fileInfo = new(file);
 
         if (!srcInfo.Exists)
@@ -53,10 +55,10 @@ public class ZipAddCommand : CliCommand
 
         destInfo.Create();
 
-        Console.WriteLine($"Compressing {source} to {zip}");
-        ZipFile.CreateFromDirectory(source, zip);
+        Console.WriteLine($"Compressing {source} to {zipPath}");
+        ZipFile.CreateFromDirectory(source, zipPath);
 
-        using FileStream zipStream = new(zip, FileMode.Open);
+        using FileStream zipStream = new(zipPath, FileMode.Open);
         using ZipArchive archive = new(zipStream, ZipArchiveMode.Update);
 
         Console.WriteLine($"Adding {fileInfo.Name} to {zip}");
@@ -66,7 +68,7 @@ public class ZipAddCommand : CliCommand
         await zipStream.DisposeAsync();
 
         Console.WriteLine($"Extracting {zip} to {destination}");
-        ZipFile.ExtractToDirectory(zip, destination);
+        ZipFile.ExtractToDirectory(zipPath, destination);
 
         Console.WriteLine("Compression operations successfully completed");
     }

@@ -13,7 +13,7 @@ public class ReadStreamTextCommand : CliCommand
             new Option<string>(
                 new string[] { "--source", "--src", "-s" },
                 description: "Source text file",
-                getDefaultValue: () => "../resources/source/readme.md"
+                getDefaultValue: () => "../resources/howto/filesystem/readme.md"
             )
         }
     )

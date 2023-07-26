@@ -9,7 +9,8 @@ public class HowToCommand : CliCommand
         commands: new()
         {
             new CompressionCommand(),
-            new FileSystemCommand()
+            new FileSystemCommand(),
+            new StreamCommand()
         }
     ) { }
 }

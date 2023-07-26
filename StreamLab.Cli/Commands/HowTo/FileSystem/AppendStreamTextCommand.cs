@@ -13,7 +13,7 @@ public class AppendStreamTextCommand : CliCommand
             new Option<string>(
                 new string[] { "--file", "-f" },
                 description: "Destination text file",
-                getDefaultValue: () => "../resources/destination/append-stream.txt"
+                getDefaultValue: () => "../resources/howto/result/append-stream.txt"
             )
         }
     )

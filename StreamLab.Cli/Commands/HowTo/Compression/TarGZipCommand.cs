@@ -15,12 +15,12 @@ public class TarGZipCommand : CliCommand
             new Option<string>(
                 new string[] { "--source", "--src", "-s" },
                 description: "Source directory to compress",
-                getDefaultValue: () => "../resources/compress/"
+                getDefaultValue: () => "../resources/howto/compress/"
             ),
             new Option<string>(
                 new string[] { "--destination", "--dest", "-d" },
                 description: "Destination extraction directory",
-                getDefaultValue: () => "../resources/result/"
+                getDefaultValue: () => "../resources/howto/result/"
             )
         }
     )
