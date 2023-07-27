@@ -8,7 +8,9 @@ public class CryptographyCommand : CliCommand
         "Lab for experimenting with Cryptography concepts",
         commands: new()
         {
+            new AsymmetricCommand(),
             new GenerateKeysCommand(),
+            new HybridCommand(),
             new SymmetricCommand()
         }
     ) { }

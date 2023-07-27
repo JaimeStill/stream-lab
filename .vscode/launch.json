@@ -2,6 +2,30 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "cryptography asymmetric",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "cwd": "${workspaceFolder}/StreamLab.Cli",
+            "program": "bin/Debug/net7.0/streamlab.dll",
+            "args": [
+                "cryptography",
+                "asymmetric"
+            ]
+        },
+        {
+            "name": "cryptography hybrid",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "cwd": "${workspaceFolder}/StreamLab.Cli",
+            "program": "bin/Debug/net7.0/streamlab.dll",
+            "args": [
+                "cryptography",
+                "hybrid"
+            ]
+        },
+        {
             "name": "cryptography symmetric",
             "type": "coreclr",
             "request": "launch",
