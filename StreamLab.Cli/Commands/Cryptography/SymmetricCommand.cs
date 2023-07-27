@@ -44,24 +44,28 @@ public class SymmetricCommand : CliCommand
 
         dest.Create();
         
-        FileInfo encrypted = await Encrypt(f, dest);
-        await Decrypt(encrypted, dest, Path.GetExtension(file));
+        Console.WriteLine($"Encrypting {f.FullName} to {dest.FullName}");
+        FileInfo encrypted = new(await Encrypt(f, dest));
+        Console.WriteLine($"Successfully encrypted to {encrypted.FullName}");
+
+        Console.WriteLine($"Decrypting {encrypted.FullName} to {dest.FullName}");
+        FileInfo decrypted = new(await Decrypt(encrypted, dest, Path.GetExtension(file)));
+        Console.WriteLine($"Encrytped data {encrypted.FullName} was successfully decrypted to {decrypted.FullName}");
     }
 
-    static async Task<FileInfo> Encrypt(FileInfo file, DirectoryInfo target)
+    static async Task<string> Encrypt(FileInfo file, DirectoryInfo target)
     {
         string filename = $"{Path.GetFileNameWithoutExtension(file.FullName)}.aes";
         string path = Path.Join(target.FullName, filename);
 
-        using FileStream fs = new(file.FullName, FileMode.Open);
-        byte[] fileBinaries = new byte[fs.Length];
-        await fs.ReadAsync(fileBinaries, 0, fileBinaries.Length);
-
-        using FileStream output = new(path, FileMode.Create);
+        using FileStream source = new(file.FullName, FileMode.Open);
+        byte[] sourceData = new byte[source.Length];
+        await source.ReadAsync(sourceData, 0, sourceData.Length);
 
         using Aes aes = Aes.Create();
         aes.Key = key;
 
+        using FileStream output = new(path, FileMode.Create);
         await output.WriteAsync(aes.IV, 0, aes.IV.Length);
         
         using CryptoStream crypto = new(
@@ -70,41 +74,37 @@ public class SymmetricCommand : CliCommand
             CryptoStreamMode.Write
         );
 
-        await crypto.WriteAsync(fileBinaries, 0, fileBinaries.Length);
-        return new(path);
+        await crypto.WriteAsync(sourceData, 0, sourceData.Length);
+        await crypto.FlushFinalBlockAsync();
+
+        return path;
     }
 
-    static async Task Decrypt(FileInfo encrypted, DirectoryInfo target, string ext)
+    static async Task<string> Decrypt(FileInfo encrypted, DirectoryInfo target, string ext)
     {
         string filename = $"{Path.GetFileNameWithoutExtension(encrypted.FullName)}{ext}";
         string path = Path.Join(target.FullName, filename);
 
-        using FileStream fs = new(encrypted.FullName, FileMode.Open);
+        using FileStream source = new(encrypted.FullName, FileMode.Open);
+        using Aes aes = Aes.Create();
+
+        byte[] iv = new byte[aes.IV.Length];
+        await source.ReadAsync(iv, 0, iv.Length);
+
+        byte[] sourceData = new byte[source.Length - iv.Length];
+        await source.ReadAsync(sourceData, 0, sourceData.Length);
+
         using FileStream output = new(path, FileMode.Create);
 
-        using Aes aes = Aes.Create();
-        byte[] iv = new byte[aes.IV.Length];
-        int numBytesToRead = aes.IV.Length;
-        int numBytesRead = 0;
-
-        while (numBytesToRead > 0)
-        {
-            int n = await fs.ReadAsync(iv, numBytesRead, numBytesToRead);
-            if (n == 0) break;
-
-            numBytesRead += n;
-            numBytesToRead -= n;
-        }
-
         using CryptoStream crypt = new(
-            fs,
+            output,
             aes.CreateDecryptor(key, iv),
-            CryptoStreamMode.Read
+            CryptoStreamMode.Write
         );
-        
-        byte[] data = new byte[fs.Length - iv.Length];
-        await crypt.ReadAsync(data);
 
-        await output.WriteAsync(data, 0, data.Length);
+        await crypt.WriteAsync(sourceData, 0, sourceData.Length);
+        await crypt.FlushFinalBlockAsync();
+
+        return path;
     }
 }
