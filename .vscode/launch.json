@@ -38,6 +38,17 @@
             ]
         },
         {
+            "name": "dataprotection",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "cwd": "${workspaceFolder}/StreamLab.Cli",
+            "program": "bin/Debug/net7.0/streamlab.dll",
+            "args": [
+                "dataprotection"
+            ]
+        },
+        {
             "name": "howto compression targzip",
             "type": "coreclr",
             "request": "launch",
