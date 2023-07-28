@@ -2,6 +2,18 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "DataProtectionApi",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "cwd": "${workspaceFolder}/Lab/StreamLab.Lab.DataProtectionApi",
+            "program": "bin/Debug/net7.0/StreamLab.Lab.DataProtectionApi.dll",
+            "stopAtEntry": false,
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            }
+        },
+        {
             "name": "cryptography asymmetric",
             "type": "coreclr",
             "request": "launch",

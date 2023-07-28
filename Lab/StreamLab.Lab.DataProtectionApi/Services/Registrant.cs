@@ -8,6 +8,7 @@ public class Registrant : ServiceRegistrant
 
     public override void Register()
     {
-        services.AddScoped<MarkingService>();
+        services.AddScoped<MarkService>();
+        services.AddScoped<MarkedStringService>();
     }
 }

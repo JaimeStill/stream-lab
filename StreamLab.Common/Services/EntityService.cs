@@ -30,8 +30,9 @@ public abstract class EntityService<T, Db> : IService<T, Db>
     public virtual async Task<List<T>> Get() =>
         await set.ToListAsync();
 
-    public virtual async Task<T?> GetById(int id) =>
-        await set.FindAsync(id);
+    public virtual async Task<T> GetById(int id) =>
+        await set.FindAsync(id)
+            ?? throw new KeyNotFoundException($"{typeof(T).Name} does not have a record with ID {id}");
 
     public abstract Task<ValidationResult> Validate(T entity);
 

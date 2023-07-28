@@ -7,6 +7,7 @@ await new CliApp(
     {
         new CryptographyCommand(),
         new DataProtectionCommand(),
+        new ExperimentCommand(),
         new HowToCommand()
     }
 ).InvokeAsync(args);

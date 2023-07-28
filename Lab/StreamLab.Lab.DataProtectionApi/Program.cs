@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder
     .Services
-    .AddDbContext<MarkingContext>(options =>
+    .AddDbContext<MarkContext>(options =>
     {
         options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
         options.UseSqlServer(builder.Configuration.GetConnectionString("App"));
