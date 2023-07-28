@@ -2,6 +2,10 @@
 
 Reasearching and prototyping ideas around .NET data streams
 
+## Lab Projects
+
+* [DataProtectionApi](./Lab/StreamLab.Lab.DataProtectionApi/readme.md)
+
 
 ## Notes
 
@@ -11,3 +15,4 @@ Reasearching and prototyping ideas around .NET data streams
 
 * [Hybrid Cryptosystem](https://en.wikipedia.org/wiki/Hybrid_cryptosystem) - Encrypt data with a symmetric algorithm, then encrypt the symmetric key with an asymmetric algorithm.
 
+* [ASP.NET Core Data Protection](https://learn.microsoft.com/en-us/aspnet/core/security/data-protection/introduction?view=aspnetcore-7.0)
